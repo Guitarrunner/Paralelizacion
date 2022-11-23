@@ -62,6 +62,7 @@ def alphaAnalysis(case1,case2):
      # creating thread
     t1 = threading.Thread(target=calcImg, args=(case1,img,1))
     t2 = threading.Thread(target=calcImg, args=(case2,mock,2))
+    totalStartTime = time.time()
     startTime1 = time.time()
     t1.start()
     startTime2 = time.time()
@@ -72,7 +73,15 @@ def alphaAnalysis(case1,case2):
     print("El tiempo de la primera encriptación fue de "+str(endTime1 - startTime1)+"s\n")
     t2.join()
     endTime2 = time.time()
+    totalEndTime = time.time()
     print("El tiempo de la segunda encriptación fue de "+str(endTime2 - startTime2)+"s\n")
+    print("El tiempo de total de encriptación con hilos fue de "+str(totalStartTime - totalEndTime)+"s\n")
+
+    totalStartTime = time.time()
+    calcImg(case1,img,1)
+    calcImg(case2,mock,2)
+    totalEndTime = time.time()
+    print("El tiempo de total de encriptación sin hilos fue de "+str(totalStartTime - totalEndTime)+"s\n")
 
     return 0
 
