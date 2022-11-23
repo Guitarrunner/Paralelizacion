@@ -27,13 +27,25 @@ def calcImg(num,t1,flag):
         if flag: imgIn=imagehash.average_hash(Image.open(t1))
         else: mockIn=imagehash.average_hash(Image.open(t1))
     case 3:
-        print("Encriptación 3: Histograma PIL\n")
-        image = cv2.imread(t1)
-        if image.mode != 'L':
-            image=image.convert('L')
-        histogram=image.histogram()
-        if flag: imgIn=histogram
-        else: mockIn=histogram
+        print("Encriptación 3: Histograma hard coded\n")
+        img = Image.open(t1)
+        pixels=[]
+        for x in range(256):
+            pixels.append(x)
+        
+        width,height=img.size
+        counts=[]
+        
+        for i in pixels:
+            temp=0
+            for x in range(width):
+                for y in range(height):
+                    if (img.getpixel((x,y))==i):
+                        temp=temp+1
+            counts.append(temp)
+
+        if flag: imgIn=pixels
+        else: mockIn=pixels
     case 4:
         print("Encriptación 4: Hash whash\n")
         if flag: imgIn=imagehash.whash(Image.open(t1))
