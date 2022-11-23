@@ -8,8 +8,6 @@ import base64
 import threading
 import time
 
-
- 
 #pruebas 
 dir = '.'
 imgIn=""
@@ -25,15 +23,21 @@ def calcImg(num,t1,flag):
         if flag: imgIn=histogram
         else: mockIn=histogram
     case 2:
-        print("Encriptación 2: Hash imagehash\n")
+        print("Encriptación 2: Hash average hash\n")
         if flag: imgIn=imagehash.average_hash(Image.open(t1))
         else: mockIn=imagehash.average_hash(Image.open(t1))
     case 3:
-        print("Encriptación 3: Histograma ?\n")
-        print("Opción 3\n")
+        print("Encriptación 3: Histograma PIL\n")
+        image = cv2.imread(t1)
+        if image.mode != 'L':
+            image=image.convert('L')
+        histogram=image.histogram()
+        if flag: imgIn=histogram
+        else: mockIn=histogram
     case 4:
-        print("Encriptación 4: hash ?\n")
-        print("Opción 4\n")
+        print("Encriptación 4: Hash whash\n")
+        if flag: imgIn=imagehash.whash(Image.open(t1))
+        else: mockIn=imagehash.whash(Image.open(t1))
     case _:
         print("Opción no valida\n")
  
