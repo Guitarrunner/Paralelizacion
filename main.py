@@ -3,18 +3,17 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
 import imagehash
-import pandas as pd
-import numpy as np
 import json
 import base64
-import requests
 import threading
- 
+import time
+
+
  
 #pruebas 
-dir = './'
-global imgIn
-global mockIn
+dir = '.'
+imgIn=""
+mockIn=""
 
 def calcImg(num,t1,flag):
    match num:
@@ -38,50 +37,31 @@ def calcImg(num,t1,flag):
         print("Opción no valida\n")
  
 
-def alphaAnalysis(case):
+def alphaAnalysis(case1,case2):
 
     img = f'{dir}/test/test.jpeg'
     mock= f'{dir}/test/mock.jpeg'
 
      # creating thread
-    t1 = threading.Thread(target=calcImg, args=(case,img,1))
-    t2 = threading.Thread(target=calcImg, args=(case,mock,2))
- 
+    t1 = threading.Thread(target=calcImg, args=(case1,img,1))
+    t2 = threading.Thread(target=calcImg, args=(case2,mock,2))
+    startTime1 = time.time()
     t1.start()
+    startTime2 = time.time()
     t2.start()
  
     t1.join()
+    endTime1 = time.time()
+    print("El tiempo de la primera encriptación fue de "+str(endTime1 - startTime1)+"s\n")
     t2.join()
-    
-
-    match case:
-        case 1:
-            cs = []
-            c1, c2 = 0, 0
-            i = 0
-            while i<len(imgIn) and i<len(mockIn):
-                c1+=(imgIn[i]-mockIn[i])**2
-                i+= 1
-            c1 = c1**(1 / 2)
-            cs += [c1[0]]
-            ind = cs.index(min(cs))
-            print(ind)
-            print("La comparació de imágenes resulto en "+str(ind)+"\n")
-        case 2:
-            compHash = imgIn - mockIn
-            print("La comparació de imágenes resulto en "+str(compHash)+"\n")
-        case 3:
-            print("Opción 3\n")
-        case 4:
-            print("Opción 4\n")
-        case _:
-            print("Opción no valida\n")
+    endTime2 = time.time()
+    print("El tiempo de la primera encriptación fue de "+str(endTime2 - startTime2)+"s\n")
 
     return 0
 
 
 if __name__ =="__main__":
    
-    print(alphaAnalysis(1))
+    print(alphaAnalysis(1,2))
     print("Done!\n")
 
