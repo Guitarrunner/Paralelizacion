@@ -75,13 +75,13 @@ def alphaAnalysis(case1,case2):
     endTime2 = time.time()
     totalEndTime = time.time()
     print("El tiempo de la segunda encriptación fue de "+str(endTime2 - startTime2)+"s\n")
-    print("El tiempo de total de encriptación con hilos fue de "+str(totalStartTime - totalEndTime)+"s\n")
+    print("El tiempo de total de encriptación con hilos fue de "+str(totalEndTime - totalStartTime)+"s\n")
 
     totalStartTime = time.time()
-    calcImg(case1,img,1)
-    calcImg(case2,mock,2)
+    calcImg(1,img,1)
+    calcImg(2,mock,2)
     totalEndTime = time.time()
-    print("El tiempo de total de encriptación sin hilos fue de "+str(totalStartTime - totalEndTime)+"s\n")
+    print("El tiempo de total de encriptación sin hilos fue de "+str(totalEndTime - totalStartTime)+"s\n")
 
     return 0
 
